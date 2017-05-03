@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(pressedUp == false){
                                 pressedUp = true;
-                                new SendMoveChar(MOVE_FORWARD).execute();
+                                new SendForwardChar().execute();
                             }
                             break;
                         case MotionEvent.ACTION_UP:
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(pressedUp == false){
                                 pressedUp = true;
-                                new SendMoveChar(MOVE_BACK).execute();
+                                new SendBackChar().execute();
                             }
                             break;
                         case MotionEvent.ACTION_UP:
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(pressedUp == false){
                                 pressedUp = true;
-                                new SendMoveChar(MOVE_LEFT).execute();
+                                new SendLeftChar().execute();
                             }
                             break;
                         case MotionEvent.ACTION_UP:
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if(pressedUp == false){
                                 pressedUp = true;
-                                new SendMoveChar(MOVE_RIGHT).execute();
+                                new SendRightChar().execute();
                             }
                             break;
                         case MotionEvent.ACTION_UP:
@@ -449,32 +449,85 @@ public class MainActivity extends AppCompatActivity {
             if(connThread != null)
                 connThread.write("S");
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
         }
     }
-    class SendMoveChar extends AsyncTask<Void, Void, Void> {
-        String s = "";
-        public SendMoveChar(String s){
-            this.s = s;
-        }
+    class SendForwardChar extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... arg0) {
             while(pressedUp) {
-                sendMoveChar(s);
+                sendMoveChar();
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             return null;
         }
-        private void sendMoveChar(String s){
+        private void sendMoveChar(){
             if(connThread != null)
-                connThread.write(s);
+                connThread.write(MOVE_FORWARD);
+        }
+    }
+    class SendBackChar extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            while(pressedUp) {
+                sendBackChar();
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        private void sendBackChar(){
+            if(connThread != null)
+                connThread.write(MOVE_BACK);
+        }
+    }
+    class SendLeftChar extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            while(pressedUp) {
+                sendLeftChar();
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        private void sendLeftChar(){
+            if(connThread != null)
+                connThread.write(MOVE_LEFT);
+        }
+    }
+    class SendRightChar extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            while(pressedUp) {
+                sendRightChar();
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+        private void sendRightChar(){
+            if(connThread != null)
+                connThread.write(MOVE_RIGHT);
         }
     }
 }
