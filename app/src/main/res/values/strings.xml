@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DroneControllApp</string>
+    <string name="dialog_title">Bluetooth Device</string>
+</resources>
